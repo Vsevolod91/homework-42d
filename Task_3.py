@@ -3,10 +3,10 @@ import json
 class Operations():
     __slots__ = ("__date", "__state", "__amount", "__description", "__from_", "__to", "__cur",
                  "__date_print", "__from_print", "__to_print", "__step_iter", "__value", "__stop")
-    all_operations = []
+    __all_operations = []
 
     def __init__(self, date, state, amount, description, from_, to, currency):
-        self.all_operations.append(self)
+        self.__all_operations.append(self)
         self.__date = date
         date_to_print = date.split("T")[0].split("-")
         date_to_print.reverse()
@@ -33,9 +33,8 @@ class Operations():
         else:
             raise StopIteration
 
-    @property
-    def all(self):
-        return self.__all_operations
+    def all(cls):
+        return cls.__all_operations
 
     @staticmethod
     def hide(string):
@@ -88,8 +87,8 @@ with open("operations.json", "r", encoding="utf-8") as f:
                    from_=from_, to=to, currency=currency)
 
     count = 0
-    Operations.all_operations.sort(reverse=True)
-    for inst in Operations.all_operations:
+    Operations.all(Operations).sort(reverse=True)
+    for inst in Operations.all(Operations):
         if inst.state() == "EXECUTED":
             print(inst)
             count += 1
