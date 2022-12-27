@@ -2,7 +2,7 @@ import json
 
 class Operations():
     __slots__ = ("__date", "__state", "__amount", "__description", "__from_", "__to", "__cur",
-                 "__date_print", "__from_print", "__to_print", "__step_iter", "__value", "__stop")
+                 "__date_print", "__from_print", "__to_print")
     __all_operations = []
 
     def __init__(self, date, state, amount, description, from_, to, currency):
@@ -19,19 +19,6 @@ class Operations():
         self.__to = to
         self.__to_print = self.hide(to)
         self.__cur = currency
-        self.__step_iter = 1
-
-    def __iter__(self):
-        self.__value = - 1
-        return self
-
-    def __next__(self):
-        self.__stop = len(self.all_operations)
-        if self.__value + self.__step_iter < self.__stop:
-            self.__value += self.__step_iter
-            return self.all_operations[self.__value]
-        else:
-            raise StopIteration
 
     def all(cls):
         return cls.__all_operations
