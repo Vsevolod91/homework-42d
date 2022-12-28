@@ -1,6 +1,6 @@
 import json
 
-class Operations():
+class Operation():
     __slots__ = ("__date", "__state", "__amount", "__description", "__from_", "__to", "__cur",
                  "__date_print", "__from_print", "__to_print")
     __all_operations = []
@@ -71,12 +71,12 @@ with open("operations.json", "r", encoding="utf-8") as f:
         except KeyError:
             continue
 
-        Operations(date=date, state=state, amount=amount, description=description,
+        Operation(date=date, state=state, amount=amount, description=description,
                    from_=from_, to=to, currency=currency)
 
     count = 0
-    Operations.all().sort(reverse=True)
-    for inst in Operations.all():
+    Operation.all().sort(reverse=True)
+    for inst in Operation.all():
         if inst.state() == "EXECUTED":
             print(inst)
             count += 1
