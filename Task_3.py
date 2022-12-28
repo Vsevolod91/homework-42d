@@ -20,6 +20,7 @@ class Operations():
         self.__to_print = self.hide(to)
         self.__cur = currency
 
+    @classmethod
     def all(cls):
         return cls.__all_operations
 
@@ -74,8 +75,8 @@ with open("operations.json", "r", encoding="utf-8") as f:
                    from_=from_, to=to, currency=currency)
 
     count = 0
-    Operations.all(Operations).sort(reverse=True)
-    for inst in Operations.all(Operations):
+    Operations.all().sort(reverse=True)
+    for inst in Operations.all():
         if inst.state() == "EXECUTED":
             print(inst)
             count += 1
